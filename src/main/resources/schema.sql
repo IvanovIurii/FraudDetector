@@ -1,0 +1,26 @@
+DROP TABLE IF EXISTS "user" CASCADE;
+DROP TABLE IF EXISTS "transaction" CASCADE;
+
+CREATE TABLE "user" (
+  id SERIAL,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  last_location TEXT NOT NULL,
+  frequency DOUBLE PRECISION NOT NULL,
+  balance DOUBLE PRECISION NOT NULL,
+
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE "transaction" (
+  id SERIAL,
+  uuid UUID NOT NULL,
+  amount DOUBLE PRECISION NOT NULL,
+  timestamp TIMESTAMPTZ NOT NULL,
+  status TEXT NOT NULL,
+  user_id INT NOT NULL,
+
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES public.user(id) ON DELETE CASCADE
+);
+
